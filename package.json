@@ -1,0 +1,46 @@
+{
+  "name": "login-webapp-test-ts",
+  "version": "1.0.0",
+  "description": "Framework de testing BDD con Playwright, Cucumber y TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "pretest": "npm run build",
+    "test": "HEADLESS=false cucumber-js",
+    "test:debug": "cucumber-js --tags @debug",
+    "test:smoke": "cucumber-js --tags @smoke",
+    "test:login": "cucumber-js --tags @login",
+    "test:chromium": "cucumber-js",
+    "test:firefox": "BROWSER=firefox cucumber-js",
+    "test:webkit": "BROWSER=webkit cucumber-js",
+    "test:firefox:headless": "BROWSER=firefox HEADLESS=true cucumber-js",
+    "test:webkit:headless": "BROWSER=webkit HEADLESS=true cucumber-js",
+    "install:browsers": "npx playwright install",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"tests/**/*.ts\" \"*.ts\""
+  },
+  "keywords": [
+    "playwright",
+    "cucumber",
+    "bdd",
+    "gherkin",
+    "testing",
+    "typescript",
+    "page-object-model"
+  ],
+  "devDependencies": {
+    "@cucumber/cucumber": "^10.0.0",
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.55.0",
+    "playwright": "^1.40.0",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {}
+}

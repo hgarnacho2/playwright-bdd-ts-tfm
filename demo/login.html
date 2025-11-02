@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c59 50%, #6fb98f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(56, 142, 60, 0.1);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -200px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 1;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2d5016;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d5016;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #c8e6c9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f1f8f4;
+        }
+        
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #4caf50;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+            background: #f1f8f4;
+            border-radius: 8px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 0.7rem;
+            transform: scale(1.3);
+            cursor: pointer;
+            accent-color: #4caf50;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: #2d5016;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #45a049 0%, #2e7d32 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            background: #a5d6a7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .error {
+            color: #c62828;
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: #ffebee;
+            border-radius: 8px;
+            font-weight: 500;
+            border-left: 4px solid #c62828;
+        }
+        
+        .success {
+            color: #2e7d32;
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: #e8f5e9;
+            border-radius: 8px;
+            font-weight: 500;
+            border-left: 4px solid #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" id="username" name="username" required placeholder="Ingrese su usuario">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required placeholder="Ingrese su contraseña">
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">Acepto los términos de uso</label>
+            </div>
+            
+            <button type="submit" class="btn">Entrar</button>
+            
+            <div id="errorMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const terms = document.getElementById('terms').checked;
+            
+            errorMessage.textContent = '';
+            errorMessage.className = '';
+            
+            if (!terms) {
+                errorMessage.textContent = 'Debe aceptar los términos de uso';
+                errorMessage.className = 'error';
+                return;
+            }
+            
+            if (username === 'user' && password === 'password') {
+                // Mostrar mensaje de éxito
+                errorMessage.textContent = 'Inicio de sesión exitoso. Redirigiendo...';
+                errorMessage.className = 'success';
+                
+                // Guardar autenticación (simulado con flag en la URL)
+                setTimeout(() => {
+                    window.location.href = 'private.html?auth=true&user=' + encodeURIComponent(username);
+                }, 1000);
+            } else {
+                errorMessage.textContent = 'Usuario o contraseña incorrectos';
+                errorMessage.className = 'error';
+            }
+        });
+    </script>
+</body>
+</html>

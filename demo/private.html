@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona Privada - Clubes de Fútbol</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c59 50%, #6fb98f 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(56, 142, 60, 0.1);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -200px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #c8e6c9;
+        }
+        
+        .welcome {
+            font-size: 1.5rem;
+            color: #2d5016;
+            font-weight: 600;
+        }
+        
+        .logout-btn {
+            background: linear-gradient(135deg, #c62828 0%, #b71c1c 100%);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(198, 40, 40, 0.3);
+        }
+        
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #b71c1c 0%, #a31515 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(198, 40, 40, 0.4);
+        }
+        
+        .search-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #c8e6c9;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f1f8f4;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #4caf50;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        
+        .results-info {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #2d5016;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .clubs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .clubs-table th,
+        .clubs-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e8f5e9;
+        }
+        
+        .clubs-table th {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .clubs-table tbody tr {
+            transition: all 0.3s;
+        }
+        
+        .clubs-table tbody tr:hover {
+            background: #f1f8f4;
+            transform: scale(1.01);
+        }
+        
+        .clubs-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .clubs-table td {
+            color: #2d5016;
+            font-size: 0.95rem;
+        }
+        
+        .club-name {
+            font-weight: 600;
+            color: #2d5016;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .pagination button {
+            padding: 0.7rem 1.2rem;
+            border: 2px solid #4caf50;
+            background: white;
+            color: #4caf50;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .pagination button:hover {
+            background: #4caf50;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .pagination button.active {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .pagination button:disabled {
+            border-color: #a5d6a7;
+            color: #a5d6a7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .pagination button:disabled:hover {
+            background: white;
+            color: #a5d6a7;
+            box-shadow: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .clubs-table th,
+            .clubs-table td {
+                padding: 0.7rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="welcome">Bienvenido, <span id="username">Usuario</span>!</span>
+            <button id="logoutBtn" class="logout-btn">Cerrar Sesión</button>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre de club o ciudad...">
+        </div>
+        
+        <div class="results-info" id="resultsInfo"></div>
+        
+        <table class="clubs-table">
+            <thead>
+                <tr>
+                    <th>Club</th>
+                    <th>Ciudad</th>
+                    <th>Año de Fundación</th>
+                    <th>Estadio</th>
+                </tr>
+            </thead>
+            <tbody id="clubsTable">
+            </tbody>
+        </table>
+        
+        <div class="pagination" id="pagination">
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticación al cargar la página
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAuthenticated = urlParams.get('auth') === 'true';
+        const username = urlParams.get('user');
+        
+        if (!isAuthenticated) {
+            alert('Debe iniciar sesión para acceder a esta página');
+            window.location.href = 'login.html';
+        }
+        
+        // Mostrar nombre de usuario
+        if (username) {
+            document.getElementById('username').textContent = username;
+        }
+        
+        // Datos de clubes de fútbol españoles
+        const clubs = [
+            {club: "Real Madrid CF", ciudad: "Madrid", fundacion: 1902, estadio: "Santiago Bernabéu"},
+            {club: "FC Barcelona", ciudad: "Barcelona", fundacion: 1899, estadio: "Camp Nou"},
+            {club: "Atlético de Madrid", ciudad: "Madrid", fundacion: 1903, estadio: "Cívitas Metropolitano"},
+            {club: "Sevilla FC", ciudad: "Sevilla", fundacion: 1890, estadio: "Ramón Sánchez-Pizjuán"},
+            {club: "Valencia CF", ciudad: "Valencia", fundacion: 1919, estadio: "Mestalla"},
+            {club: "Athletic Club", ciudad: "Bilbao", fundacion: 1898, estadio: "San Mamés"},
+            {club: "Real Sociedad", ciudad: "San Sebastián", fundacion: 1909, estadio: "Reale Arena"},
+            {club: "Real Betis", ciudad: "Sevilla", fundacion: 1907, estadio: "Benito Villamarín"},
+            {club: "Villarreal CF", ciudad: "Villarreal", fundacion: 1923, estadio: "Estadio de la Cerámica"},
+            {club: "RC Celta de Vigo", ciudad: "Vigo", fundacion: 1923, estadio: "Balaídos"},
+            {club: "RCD Espanyol", ciudad: "Barcelona", fundacion: 1900, estadio: "RCDE Stadium"},
+            {club: "Getafe CF", ciudad: "Getafe", fundacion: 1983, estadio: "Coliseum Alfonso Pérez"},
+            {club: "CA Osasuna", ciudad: "Pamplona", fundacion: 1920, estadio: "El Sadar"},
+            {club: "Deportivo Alavés", ciudad: "Vitoria", fundacion: 1921, estadio: "Mendizorroza"},
+            {club: "RCD Mallorca", ciudad: "Palma", fundacion: 1916, estadio: "Son Moix"},
+            {club: "Cádiz CF", ciudad: "Cádiz", fundacion: 1910, estadio: "Nuevo Mirandilla"},
+            {club: "Granada CF", ciudad: "Granada", fundacion: 1931, estadio: "Nuevo Los Cármenes"},
+            {club: "Levante UD", ciudad: "Valencia", fundacion: 1909, estadio: "Ciutat de València"},
+            {club: "Real Valladolid", ciudad: "Valladolid", fundacion: 1928, estadio: "José Zorrilla"},
+            {club: "Deportivo de La Coruña", ciudad: "La Coruña", fundacion: 1906, estadio: "Riazor"},
+            {club: "Real Zaragoza", ciudad: "Zaragoza", fundacion: 1932, estadio: "La Romareda"},
+            {club: "Sporting de Gijón", ciudad: "Gijón", fundacion: 1905, estadio: "El Molinón"},
+            {club: "Málaga CF", ciudad: "Málaga", fundacion: 1904, estadio: "La Rosaleda"},
+            {club: "Real Oviedo", ciudad: "Oviedo", fundacion: 1926, estadio: "Carlos Tartiere"},
+            {club: "UD Las Palmas", ciudad: "Las Palmas", fundacion: 1949, estadio: "Gran Canaria"}
+        ];
+        
+        let filteredClubs = [...clubs];
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        
+        // Elementos del DOM
+        const logoutBtn = document.getElementById('logoutBtn');
+        const searchInput = document.getElementById('searchInput');
+        const clubsTable = document.getElementById('clubsTable');
+        const pagination = document.getElementById('pagination');
+        const resultsInfo = document.getElementById('resultsInfo');
+        
+        // Logout
+        logoutBtn.addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+        
+        // Búsqueda
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            filteredClubs = clubs.filter(club => 
+                club.club.toLowerCase().includes(searchTerm) ||
+                club.ciudad.toLowerCase().includes(searchTerm)
+            );
+            currentPage = 1;
+            displayClubs();
+            displayPagination();
+            updateResultsInfo();
+        });
+        
+        function displayClubs() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageClubs = filteredClubs.slice(start, end);
+            
+            clubsTable.innerHTML = '';
+            
+            pageClubs.forEach(club => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="club-name">${club.club}</td>
+                    <td>${club.ciudad}</td>
+                    <td>${club.fundacion}</td>
+                    <td>${club.estadio}</td>
+                `;
+                clubsTable.appendChild(row);
+            });
+        }
+        
+        function displayPagination() {
+            const totalPages = Math.ceil(filteredClubs.length / itemsPerPage);
+            pagination.innerHTML = '';
+            
+            // Botón anterior
+            const prevBtn = document.createElement('button');
+            prevBtn.textContent = 'Anterior';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayClubs();
+                    displayPagination();
+                    updateResultsInfo();
+                }
+            });
+            pagination.appendChild(prevBtn);
+            
+            // Botones de páginas
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.textContent = i;
+                pageBtn.classList.toggle('active', i === currentPage);
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    displayClubs();
+                    displayPagination();
+                    updateResultsInfo();
+                });
+                pagination.appendChild(pageBtn);
+            }
+            
+            // Botón siguiente
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = 'Siguiente';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayClubs();
+                    displayPagination();
+                    updateResultsInfo();
+                }
+            });
+            pagination.appendChild(nextBtn);
+        }
+        
+        function updateResultsInfo() {
+            const start = (currentPage - 1) * itemsPerPage + 1;
+            const end = Math.min(start + itemsPerPage - 1, filteredClubs.length);
+            const total = filteredClubs.length;
+            
+            if (total === 0) {
+                resultsInfo.textContent = 'No se encontraron clubes';
+            } else {
+                resultsInfo.textContent = `Mostrando ${start}-${end} de ${total} clubes`;
+            }
+        }
+        
+        // Inicializar la página
+        displayClubs();
+        displayPagination();
+        updateResultsInfo();
+    </script>
+</body>
+</html>
