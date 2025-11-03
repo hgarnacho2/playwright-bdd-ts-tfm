@@ -4,7 +4,7 @@
   "description": "Framework de testing BDD con Playwright, Cucumber y TypeScript",
   "main": "index.js",
   "scripts": {
-    "init": "npm install && npx playwright install",
+    "init": "npm install --legacy-peer-deps && npx playwright install",
     "test": "HEADLESS=false cucumber-js",
     "test:headless": "HEADLESS=true cucumber-js",
 
