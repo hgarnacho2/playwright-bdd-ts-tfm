@@ -1,21 +1,17 @@
 {
- "compilerOptions": {
+  "compilerOptions": {
     "target": "ES2020",
-    "module": "commonjs",
-    "lib": ["ES2020"],
-    "outDir": "./dist",
-    "rootDir": "./",
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "types": ["node"]
+    "sourceMap": true,
+    "baseUrl": "."
   },
   "include": [
-    "tests/**/*.ts",
-    "cucumber.ts",
+    "tests/**/*.ts", 
     "playwright.config.ts"
   ],
   "exclude": [

@@ -4,19 +4,18 @@
   "description": "Framework de testing BDD con Playwright, Cucumber y TypeScript",
   "main": "index.js",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "tsc",
-    "pretest": "npm run build",
+    "init": "npm install && npx playwright install",
     "test": "HEADLESS=false cucumber-js",
+    "test:headless": "HEADLESS=true cucumber-js",
+
     "test:debug": "cucumber-js --tags @debug",
-    "test:smoke": "cucumber-js --tags @smoke",
     "test:login": "cucumber-js --tags @login",
-    "test:chromium": "cucumber-js",
+    "test:chromium": "HEADLESS=true cucumber-js",
     "test:firefox": "BROWSER=firefox cucumber-js",
     "test:webkit": "BROWSER=webkit cucumber-js",
     "test:firefox:headless": "BROWSER=firefox HEADLESS=true cucumber-js",
     "test:webkit:headless": "BROWSER=webkit HEADLESS=true cucumber-js",
-    "install:browsers": "npx playwright install",
+
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"tests/**/*.ts\" \"*.ts\""
   },
@@ -40,7 +39,8 @@
     "prettier": "^3.1.0",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "tsx": "^4.12.0"
   },
   "dependencies": {}
 }

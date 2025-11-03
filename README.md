@@ -1,68 +1,74 @@
 # Framework de Testing BDD con Playwright, Cucumber y TypeScript
 
-Este proyecto implementa un framework de testing automatizado usando **Playwright**, **Cucumber** (BDD), **Gherkin**, **TypeScript** y **Page Object Model** para probar la aplicación web de login.
+Este proyecto implementa un **framework de testing automatizado** usando **Playwright**, **Cucumber** (BDD), **Gherkin**, **TypeScript** y **Page Object Model (POM)** para probar la aplicación web de login.
+
+---
 
 ## 🚀 Instalación y Configuración
 
-### 1. Instalar dependencias
+### 1. Inicializar proyecto e instalar dependencias
+
 ```bash
-npm install
+npm run init
 ```
 
-### 2. Instalar navegadores de Playwright
-```bash
-npm run install:browsers
-```
+### 2. Preparar archivos HTML
 
-### 3. Compilar TypeScript
-```bash
-npm run build
-```
+Asegúrate de que `login.html` y `private.html` estén en la carpeta `/demo` dentro del proyecto.
 
-### 4. Preparar archivos HTML
-Asegúrate de que `login.html` y `private.html` estén en la carpeta `/demo` situada dentro del proyecto.
+---
 
 ## 🧪 Ejecutar Tests
 
-### Ejecutar todos los tests
+### Ejecutar todos los tests en modo headless
+
+```bash
+npm run test:headless
+```
+
+### Ejecutar todos los tests en modo headed (navegador visible)
+
 ```bash
 npm test
 ```
 
-### Ejecutar tests específicos por tags
+### Ejecutar tests por tags
+
 ```bash
-npm run test:login     # Solo tests de login
-npm run test:smoke     # Solo tests de smoke
-npm run test:debug     # Solo tests con tag @debug
+npm run test:debug   # Solo tests con tag @debug
+npm run test:login   # Solo tests con tag @login
 ```
 
-### Ejecutar con navegador visible
-```bash
-HEADLESS=false npm test
-```
+### Ejecutar tests en navegadores específicos
 
-### Ejecutar tests predefinidas
-```bash
-npm run test:chromium           # Tests en Chromium (headless por defecto)
-npm run test:firefox            # Tests en Firefox
-npm run test:webkit             # Tests en WebKit (Safari)
-npm run test:firefox:headless   # Tests en Firefox headless
-npm run test:webkit:headless    # Tests en WebKit headless
-```
+| Script                          | Navegador | Headless |
+| ------------------------------- | --------- | -------- |
+| `npm run test:chromium`         | Chromium  | true     |
+| `npm run test:firefox`          | Firefox   | false    |
+| `npm run test:webkit`           | WebKit    | false    |
+| `npm run test:firefox:headless` | Firefox   | true     |
+| `npm run test:webkit:headless`  | WebKit    | true     |
+
+---
 
 ## 📋 Scenarios de Prueba
 
-- ✅ Login exitoso con credenciales válidas
-- ❌ Login fallido con credenciales inválidas
-- ❌ Login fallido sin aceptar términos
-- 🔐 Acceso directo sin autenticación
+* ✅ Login exitoso con credenciales válidas
+* ❌ Login fallido con credenciales inválidas
+* ❌ Login fallido sin aceptar términos
+* 🔐 Acceso directo sin autenticación
+
+---
 
 ## 📊 Reportes
 
 Los reportes se generan automáticamente en:
-- HTML: `reports/cucumber-report.html`
-- JSON: `reports/cucumber-report.json`
-- Screenshots: `reports/screenshots/`
+
+* HTML: `reports/cucumber-report.html`
+* JSON: `reports/cucumber-report.json`
+* Screenshots: `reports/screenshots/`
+
+---
 
 ## 🏗️ Estructura del Proyecto
 
@@ -85,72 +91,78 @@ Los reportes se generan automáticamente en:
 ├── dist/                   # Código compilado (JavaScript)
 ├── cucumber.config.ts      # Configuración de Cucumber
 ├── playwright.config.ts    # Configuración de Playwright
-├── tsconfig.json          # Configuración de TypeScript
-└── package.json           # Dependencias y scripts
+├── tsconfig.json           # Configuración de TypeScript
+└── package.json            # Dependencias y scripts
 ```
+
+---
 
 ## 🔧 Tecnologías Utilizadas
 
-- **TypeScript**: Tipado estático para mayor robustez
-- **Playwright**: Framework de automatización de navegadores
-- **Cucumber**: Framework BDD para escribir tests en lenguaje natural
-- **Gherkin**: Lenguaje para escribir escenarios de prueba
-- **Page Object Model**: Patrón de diseño para organizar el código de tests
+* **TypeScript**: Tipado estático y robustez
+* **Playwright**: Automatización de navegadores
+* **Cucumber**: BDD para escribir tests en lenguaje natural
+* **Gherkin**: Lenguaje para definir escenarios de prueba
+* **Page Object Model**: Patrón de diseño para organizar el código
+
+---
 
 ## 📝 Ventajas de TypeScript
 
-- ✅ **Type Safety**: Detecta errores en tiempo de compilación
-- ✅ **IntelliSense**: Autocompletado mejorado en el IDE
-- ✅ **Refactoring**: Más seguro y sencillo
-- ✅ **Documentación**: El código es autodocumentado con tipos
-- ✅ **Mantenibilidad**: Código más limpio y fácil de mantener
+* ✅ **Type Safety**
+* ✅ **IntelliSense**
+* ✅ **Refactoring seguro**
+* ✅ **Documentación automática con tipos**
+* ✅ **Mantenibilidad y limpieza del código**
+
+---
 
 ## 🛠️ Scripts Disponibles
 
 ```bash
-npm run build              # Compila TypeScript a JavaScript
-npm test                   # Ejecuta todos los tests
-npm run test:debug         # Ejecuta tests con tag @debug
-npm run test:smoke         # Ejecuta tests smoke
-npm run test:login         # Ejecuta tests de login
-npm run lint               # Ejecuta linter (ESLint)
-npm run format             # Formatea código (Prettier)
+npm run init                    # Instala dependencias y navegadores
+npm test                        # Ejecuta todos los tests en modo headed (HEADLESS=false)
+npm run test:headless           # Ejecuta tests en modo headless
+npm run test:debug               # Tests con tag @debug
+npm run test:login               # Tests con tag @login
+npm run test:chromium            # Tests en Chromium headless
+npm run test:firefox             # Tests en Firefox
+npm run test:webkit              # Tests en WebKit
+npm run test:firefox:headless    # Tests en Firefox headless
+npm run test:webkit:headless     # Tests en WebKit headless
+npm run lint                     # Ejecuta ESLint
+npm run format                   # Formatea código con Prettier
 ```
+
+---
 
 ## 🔍 Desarrollo
 
 ### Compilar en modo watch
+
 ```bash
 npx tsc --watch
 ```
 
 ### Ejecutar linter
+
 ```bash
 npm run lint
 ```
 
 ### Formatear código
+
 ```bash
 npm run format
 ```
 
-## 📖 Guía de Migración desde JavaScript
-
-Si estás migrando desde la versión JavaScript:
-
-1. Instala las nuevas dependencias: `npm install`
-2. Compila el código TypeScript: `npm run build`
-3. Los archivos `.feature` permanecen sin cambios
-4. Toda la lógica está ahora tipada en archivos `.ts`
+---
 
 ## 🐛 Debugging
 
-Para debuggear tests en TypeScript:
-
 1. Usa VS Code con extensión de Cucumber
 2. Añade breakpoints en archivos `.ts`
-3. Ejecuta con el debugger de VS Code
+3. Ejecuta con `npm run test`
 
-## 📄 Licencia
+---
 
-Este proyecto es de código abierto y está disponible bajo la licencia MIT.
