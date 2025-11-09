@@ -9,7 +9,7 @@ Feature: Login de Usuario
 
   @positive @regresion
   Scenario: Login exitoso con credenciales válidas
-    When ingreso el usuario "user" y la contraseña "password"
+    When ingreso el usuario "user_NO_VALIDO" y la contraseña "password"
     And acepto los términos de uso
     And hago clic en el botón "Entrar"
     Then debería ser redirigido a la zona privada
