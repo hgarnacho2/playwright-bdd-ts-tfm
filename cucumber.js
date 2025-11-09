@@ -1,9 +1,11 @@
 const config = {
   default: {
+    // 👉 Ejecuta TypeScript directamente (puedes usar 'ts-node/register' si prefieres)
+    requireModule: ['tsx'],
     require: [
-      'dist/tests/support/world.js',
-      'dist/tests/support/hooks.js',
-      'dist/tests/step_definitions/**/*.js'
+      'tests/support/world.ts',
+      'tests/support/hooks.ts',
+      'tests/step_definitions/**/*.ts'
     ],
     format: [
       'progress',
@@ -12,7 +14,6 @@ const config = {
     ],
     paths: ['tests/features/**/*.feature'],
     parallel: 1,
-    publishQuiet: true,
     dryRun: false,
     failFast: false
   }
