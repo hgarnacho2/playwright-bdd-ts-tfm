@@ -1,0 +1,34 @@
+name: Playwright Regression Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Instalar navegadores de Playwright
+        run: npx playwright install --with-deps
+
+      # Si tu app está hosteada en GitHub Pages, este paso no es necesario
+      # - name: Servir la app localmente
+      #   run: npx http-server ./login-demo -p 8080 &
+
+      - name: Ejecutar tests de regresión
+        run: npm run test:ci
