@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "init": "npm install --legacy-peer-deps && npx playwright install",
-    "test": "HEADLESS=false cucumber-js",
+    "test": "BROWSER=chromium HEADLESS=false cucumber-js",
+    "test:ci": "BROWSER=chromium HEADLESS=true cucumber-js --tags @regresion",
+
     "test:headed:slow": "HEADLESS=false SLOW_MO=1000 cucumber-js",
     "test:headless": "HEADLESS=true cucumber-js",
 
