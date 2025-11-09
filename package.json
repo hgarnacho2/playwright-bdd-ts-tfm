@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "init": "npm install --legacy-peer-deps && npx playwright install",
-    "test": "BROWSER=chromium HEADLESS=false cucumber-js",
-    "test:ci": "BROWSER=chromium HEADLESS=true cucumber-js --tags @regresion",
+    
+    "test:local": "ENV=local BROWSER=chromium HEADLESS=false cucumber-js",
+    "test:ci": "ENV=ci BROWSER=chromium HEADLESS=true cucumber-js --tags @regresion",
 
     "test:headed:slow": "HEADLESS=false SLOW_MO=1000 cucumber-js",
     "test:headless": "HEADLESS=true cucumber-js",
@@ -42,7 +43,8 @@
     "prettier": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
-    "tsx": "^4.12.0"
+    "tsx": "^4.12.0",
+    "dotenv": "^16.4.5"
   },
   "dependencies": {}
 }
