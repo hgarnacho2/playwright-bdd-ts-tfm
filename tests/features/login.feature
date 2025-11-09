@@ -7,7 +7,7 @@ Feature: Login de Usuario
   Background:
     Given que estoy en la página de login
 
-  @positive
+  @positive @regresion
   Scenario: Login exitoso con credenciales válidas
     When ingreso el usuario "user" y la contraseña "password"
     And acepto los términos de uso
@@ -17,7 +17,7 @@ Feature: Login de Usuario
     And debería ver la lista de productos
     And la URL debería contener "private.html"
 
-  @negative
+  @negative @regresion
   Scenario Outline: Login fallido con credenciales inválidas
     When ingreso el usuario "<usuario>" y la contraseña "<contraseña>"
     And acepto los términos de uso
@@ -32,14 +32,14 @@ Feature: Login de Usuario
       | user         | 123456       | Usuario o contraseña incorrectos  |
       | incorrecto   | incorrecto   | Usuario o contraseña incorrectos  |
 
-  @negative
+  @negative @regresion
   Scenario: Login fallido sin aceptar términos de uso
     When ingreso el usuario "user" y la contraseña "password"
     And NO acepto los términos de uso
     And hago clic en el botón "Entrar"
     Then debería permanecer en la página de login
 
-  @security
+  @security @regresion
   Scenario: Acceso directo a zona privada sin autenticación
     When intento acceder directamente a la zona privada
     Then debería ser redirigido automáticamente al login

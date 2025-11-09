@@ -1,11 +1,12 @@
 {
-  "name": "login-webapp-test-ts",
+  "name": "hectorgarnachogarcia-TFM-CFGS-DAW-playwright-bdd-ts",
   "version": "1.0.0",
   "description": "Framework de testing BDD con Playwright, Cucumber y TypeScript",
   "main": "index.js",
   "scripts": {
     "init": "npm install --legacy-peer-deps && npx playwright install",
     "test": "HEADLESS=false cucumber-js",
+    "test:headed:slow": "HEADLESS=false SLOW_MO=1000 cucumber-js",
     "test:headless": "HEADLESS=true cucumber-js",
 
     "test:debug": "cucumber-js --tags @debug",
@@ -37,7 +38,6 @@
     "eslint": "^8.55.0",
     "playwright": "^1.40.0",
     "prettier": "^3.1.0",
-    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "tsx": "^4.12.0"
