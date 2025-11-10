@@ -171,5 +171,4 @@ npm run format
 3. Ejecuta con `npm run test`
 
 ---
-xx
 
