@@ -28,10 +28,10 @@ jobs:
       - name: Ejecutar tests de regresión
         run: npm run test:ci
         
-      - name: Subir reportes de fallo de Playwright
+      - name: Subir reportes de Playwright como artefacto
         if: ${{ always() }} # Se ejecuta incluso si el paso anterior falla
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report-${{ github.sha }}
-          path: playwright-report/
+          path: reports/playwright-report/
           retention-days: 7
