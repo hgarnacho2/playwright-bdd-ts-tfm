@@ -10,7 +10,7 @@ on:
 jobs:
   test-playwright:
     runs-on: ubuntu-latest
-
+    name: test-playwright-regresion
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
