@@ -2,6 +2,30 @@ import { Before, After, BeforeAll, AfterAll, Status, setDefaultTimeout } from '@
 import { ICustomWorld } from './world';
 import * as fs from 'fs';
 
+// ════════════════════════════════════════════════════════════════════════════
+// 🎨 COLORES ANSI PARA CONSOLA
+// ════════════════════════════════════════════════════════════════════════════
+const colors = {
+  reset: '\x1b[0m',
+  bright: '\x1b[1m',
+  dim: '\x1b[2m',
+  
+  // Colores de texto
+  violet: '\x1b[35m',
+  magenta: '\x1b[95m',
+  cyan: '\x1b[36m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m',
+  red: '\x1b[31m',
+  blue: '\x1b[34m',
+  white: '\x1b[37m',
+  gray: '\x1b[90m',
+  
+  // Backgrounds
+  bgViolet: '\x1b[45m',
+  bgBlack: '\x1b[40m',
+};
+
 // Variables globales para tracking
 let totalScenarios = 0;
 let passedScenarios = 0;
@@ -20,8 +44,8 @@ BeforeAll(async function() {
   
   // Iniciar contador de tiempo
   startTime = Date.now();
-  console.log('\n🎬 ============================================');
-  console.log('   INICIANDO SUITE DE TESTS');
+  console.log('\n============================================');
+  console.log(` 🎬 TFM - ${colors.violet}${colors.bright}Héctor Garnacho García${colors.reset}`);
   console.log('============================================\n');
 });
 
@@ -30,7 +54,7 @@ Before(async function(this: ICustomWorld, scenario) {
   await this.openBrowser(browserType);
   this.clearTestData();
   totalScenarios++;
-  console.log(`\n🚀 Iniciando escenario: ${scenario.pickle.name} en navegador: ${browserType}`);
+  console.log(`\n${colors.cyan}🚀 Iniciando escenario:${colors.reset} ${scenario.pickle.name} ${colors.gray}en navegador: ${browserType}${colors.reset}`);
 });
 
 After(async function(this: ICustomWorld, scenario) {
@@ -46,17 +70,17 @@ After(async function(this: ICustomWorld, scenario) {
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.log('⚠️ Error al tomar screenshot:', errorMessage);
+    console.log(`${colors.yellow}⚠️  Error al tomar screenshot:${colors.reset} ${errorMessage}`);
   } finally {
     await this.closeBrowser();
     
     // Log individual del escenario
     if (scenario.result?.status === Status.FAILED) {
-      console.log(`❌ Escenario fallido: ${scenario.pickle.name}\n`);
+      console.log(`${colors.red}❌ Escenario fallido:${colors.reset} ${scenario.pickle.name}\n`);
     } else if (scenario.result?.status === Status.PASSED) {
-      console.log(`✅ Escenario exitoso: ${scenario.pickle.name}\n`);
+      console.log(`${colors.green}✅ Escenario exitoso:${colors.reset} ${scenario.pickle.name}\n`);
     } else {
-      console.log(`⊘ Escenario saltado: ${scenario.pickle.name}\n`);
+      console.log(`${colors.gray}⊘  Escenario saltado:${colors.reset} ${scenario.pickle.name}\n`);
     }
   }
 });
@@ -68,23 +92,23 @@ AfterAll(async function() {
   const passRate = totalScenarios > 0 ? ((passedScenarios / totalScenarios) * 100).toFixed(2) : '0';
   
   console.log('\n');
-  console.log('╔════════════════════════════════════════════════════════════╗');
-  console.log('║                   📊 RESUMEN DE EJECUCIÓN                  ║');
-  console.log('╚════════════════════════════════════════════════════════════╝');
+  console.log(`${colors.bright}╔════════════════════════════════════════════════════════════╗${colors.reset}`);
+  console.log(`${colors.bright}║${colors.reset}                   ${colors.cyan}📊 RESUMEN DE EJECUCIÓN${colors.reset}                  ${colors.bright}║${colors.reset}`);
+  console.log(`${colors.bright}╚════════════════════════════════════════════════════════════╝${colors.reset}`);
   console.log('');
   
   // Estadísticas principales
-  console.log('📈 ESTADÍSTICAS:');
-  console.log('  ├─ 📝 Total de escenarios:    ' + totalScenarios);
-  console.log('  ├─ ✅ Escenarios exitosos:    ' + passedScenarios);
-  console.log('  ├─ ❌ Escenarios fallidos:    ' + failedScenarios);
-  console.log('  ├─ ⊘  Escenarios saltados:    ' + skippedScenarios);
-  console.log('  └─ 🎯 Tasa de éxito:          ' + passRate + '%');
+  console.log(`${colors.blue}📈 ESTADÍSTICAS:${colors.reset}`);
+  console.log(`  ├─ 📝 Total de escenarios:    ${colors.bright}${totalScenarios}${colors.reset}`);
+  console.log(`  ├─ ${colors.green}✅ Escenarios exitosos:${colors.reset}    ${colors.green}${colors.bright}${passedScenarios}${colors.reset}`);
+  console.log(`  ├─ ${colors.red}❌ Escenarios fallidos:${colors.reset}    ${colors.red}${colors.bright}${failedScenarios}${colors.reset}`);
+  console.log(`  ├─ ${colors.gray}⊘  Escenarios saltados:${colors.reset}    ${colors.gray}${skippedScenarios}${colors.reset}`);
+  console.log(`  └─ ${colors.cyan}🎯 Tasa de éxito:${colors.reset}          ${colors.bright}${passRate}%${colors.reset}`);
   console.log('');
   
   // Tiempo de ejecución
-  console.log('⏱️  TIEMPO DE EJECUCIÓN:');
-  console.log('  └─ ⏰ Duración total:         ' + totalDuration.toFixed(2) + 's');
+  console.log(`${colors.magenta}⏱️  TIEMPO DE EJECUCIÓN:${colors.reset}`);
+  console.log(`  └─ ${colors.yellow}⏰ Duración total:${colors.reset}         ${colors.bright}${totalDuration.toFixed(2)}s${colors.reset}`);
   console.log('');
   
   // Entorno
@@ -92,31 +116,31 @@ AfterAll(async function() {
   const headless = process.env.HEADLESS === 'true' ? 'Sí' : 'No';
   const env = process.env.ENV || 'local';
   
-  console.log('🔧 CONFIGURACIÓN:');
-  console.log('  ├─ 🌐 Navegador:              ' + browser);
-  console.log('  ├─ 👁️  Headless:               ' + headless);
-  console.log('  └─ 🏷️  Entorno:                ' + env);
+  console.log(`${colors.blue}🔧 CONFIGURACIÓN:${colors.reset}`);
+  console.log(`  ├─ 🌐 Navegador:              ${colors.bright}${browser}${colors.reset}`);
+  console.log(`  ├─ 👁️  Headless:               ${colors.bright}${headless}${colors.reset}`);
+  console.log(`  └─ 🏷️  Entorno:                ${colors.bright}${env}${colors.reset}`);
   console.log('');
   
   // Reportes
-  console.log('📁 REPORTES GENERADOS:');
-  console.log('  ├─ 📄 HTML:                   reports/cucumber-report.html');
-  console.log('  ├─ 📋 JSON:                   reports/cucumber-report.json');
+  console.log(`${colors.cyan}📁 REPORTES GENERADOS:${colors.reset}`);
+  console.log(`  ├─ 📄 HTML:                   ${colors.gray}reports/cucumber-report.html${colors.reset}`);
+  console.log(`  ├─ 📋 JSON:                   ${colors.gray}reports/cucumber-report.json${colors.reset}`);
   if (failedScenarios > 0) {
-    console.log('  └─ 📸 Screenshots:            reports/screenshots/');
+    console.log(`  └─ 📸 Screenshots:            ${colors.gray}reports/screenshots/${colors.reset}`);
   }
   console.log('');
   
   // Estado final
   if (failedScenarios === 0) {
-    console.log('╔════════════════════════════════════════════════════════════╗');
-    console.log('║            🎉 ¡TODOS LOS TESTS PASARON! 🎉                 ║');
-    console.log('╚════════════════════════════════════════════════════════════╝');
+    console.log(`${colors.green}${colors.bright}╔════════════════════════════════════════════════════════════╗${colors.reset}`);
+    console.log(`${colors.green}${colors.bright}║${colors.reset}            ${colors.green}🎉 ¡TODOS LOS TESTS PASARON! 🎉${colors.reset}                 ${colors.green}${colors.bright}║${colors.reset}`);
+    console.log(`${colors.green}${colors.bright}╚════════════════════════════════════════════════════════════╝${colors.reset}`);
   } else {
-    console.log('╔════════════════════════════════════════════════════════════╗');
-    console.log('║          ⚠️  ALGUNOS TESTS FALLARON ⚠️                     ║');
-    console.log('╚════════════════════════════════════════════════════════════╝');
+    console.log(`${colors.red}${colors.bright}╔════════════════════════════════════════════════════════════╗${colors.reset}`);
+    console.log(`${colors.red}${colors.bright}║${colors.reset}          ${colors.red}⚠️  ALGUNOS TESTS FALLARON ⚠️${colors.reset}                     ${colors.red}${colors.bright}║${colors.reset}`);
+    console.log(`${colors.red}${colors.bright}╚════════════════════════════════════════════════════════════╝${colors.reset}`);
   }
   
-  console.log('\n🏁 Ejecución finalizada\n');
+  console.log(`\n${colors.white}🏁 Ejecución finalizada${colors.reset}\n`);
 });
