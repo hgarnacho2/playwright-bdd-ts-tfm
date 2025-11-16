@@ -3,6 +3,7 @@ import { BasePage } from './BasePage';
 
 interface PrivateSelectors {
   welcomeMessage: string;
+  welcomeMessageUserSpan: string;
   logoutButton: string;
   searchInput: string;
   clubsTable: string;
@@ -20,6 +21,7 @@ export class PrivatePage extends BasePage {
     
     this.selectors = {
       welcomeMessage: '.welcome',
+      welcomeMessageUserSpan: 'span#username',
       logoutButton: '#logoutBtn',
       searchInput: '#searchInput',
       clubsTable: '#clubsTable',
@@ -33,6 +35,11 @@ export class PrivatePage extends BasePage {
   async navigateToPrivate(): Promise<void> {
     await this.navigateTo('file://' + process.cwd() + '/demo/private.html');
     await this.waitForLoadState();
+  }
+
+   // ✅ Getter para acceder a los selectores
+  get Selectors(): PrivateSelectors {
+    return this.selectors;
   }
 
   async navigateToPrivateDirectly(): Promise<void> {
@@ -53,12 +60,26 @@ export class PrivatePage extends BasePage {
     return text || '';
   }
 
+  async getWelcomeMessageUserSpanText(): Promise<string> {
+    await this.waitForSelector(this.selectors.welcomeMessageUserSpan);
+    const text = await this.getText(this.selectors.welcomeMessageUserSpan);
+    return text || '';
+  }
+
   async isWelcomeMessageVisible(): Promise<boolean> {
     return await this.isVisible(this.selectors.welcomeMessage);
   }
 
-  async isClubsTableVisible(): Promise<boolean> {
-    return await this.isVisible(this.selectors.clubsTable);
+  async isVisible(selector: string, timeout: number = 10000): Promise<boolean> {
+    try {
+      await this.page.waitForSelector(selector, { 
+        state: 'visible',
+        timeout 
+      });
+      return await this.page.locator(selector).isVisible();
+    } catch {
+      return false;
+    }
   }
 
   async getClubsCount(): Promise<number> {

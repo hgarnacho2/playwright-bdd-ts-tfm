@@ -95,4 +95,9 @@ export class LoginPage extends BasePage {
     }
     return true;
   }
+
+  sleep(timeOut: number = 1000){
+    this.page.waitForTimeout(timeOut)
+  }
+
 }

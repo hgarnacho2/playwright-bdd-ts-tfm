@@ -1,6 +1,5 @@
 const config = {
   default: {
-    // 👉 Ejecuta TypeScript directamente (puedes usar 'ts-node/register' si prefieres)
     requireModule: ['tsx'],
     require: [
       'tests/support/world.ts',

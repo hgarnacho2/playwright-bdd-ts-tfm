@@ -1,5 +1,6 @@
 import { setWorldConstructor, World, IWorldOptions } from '@cucumber/cucumber';
-import { Browser, BrowserContext, Page, chromium, firefox, webkit } from 'playwright';
+import { Browser, BrowserContext, Page, chromium, firefox, webkit } from '@playwright/test';
+
 import { LoginPage } from '../pages/LoginPage';
 import { PrivatePage } from '../pages/PrivatePage';
 
@@ -44,7 +45,7 @@ export class CustomWorld extends World implements ICustomWorld {
 
   async openBrowser(browserType: 'chromium' | 'firefox' | 'webkit' = 'chromium'): Promise<void> {
     const browserOptions = {
-      headless: process.env.HEADLESS !== 'false',
+      headless: process.env.HEADLESS === 'true',
       slowMo: process.env.SLOW_MO ? parseInt(process.env.SLOW_MO) : 0
     };
 
