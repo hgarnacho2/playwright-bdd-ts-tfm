@@ -91,10 +91,9 @@ AfterAll(async function() {
   
   const passRate = totalScenarios > 0 ? ((passedScenarios / totalScenarios) * 100).toFixed(2) : '0';
   
-  console.log('\n');
-  console.log(`${colors.bright}╔════════════════════════════════════════════════════════════╗${colors.reset}`);
-  console.log(`${colors.bright}║${colors.reset}                   ${colors.cyan}📊 RESUMEN DE EJECUCIÓN${colors.reset}                  ${colors.bright}║${colors.reset}`);
-  console.log(`${colors.bright}╚════════════════════════════════════════════════════════════╝${colors.reset}`);
+  console.log(`${colors.bright}${colors.cyan}-------------------------------------------------`);
+  console.log(`📊 RESUMEN DE EJECUCIÓN`);
+  console.log(`-------------------------------------------------${colors.reset}`);
   console.log('');
   
   // Estadísticas principales
@@ -133,13 +132,13 @@ AfterAll(async function() {
   
   // Estado final
   if (failedScenarios === 0) {
-    console.log(`${colors.green}${colors.bright}╔════════════════════════════════════════════════════════════╗${colors.reset}`);
-    console.log(`${colors.green}${colors.bright}║${colors.reset}            ${colors.green}🎉 ¡TODOS LOS TESTS PASARON! 🎉${colors.reset}                 ${colors.green}${colors.bright}║${colors.reset}`);
-    console.log(`${colors.green}${colors.bright}╚════════════════════════════════════════════════════════════╝${colors.reset}`);
+    console.log(`${colors.green}${colors.bright}-------------------------------------------------`);
+    console.log(`🎉 ¡TODOS LOS TESTS PASARON! 🎉`);
+    console.log(`${colors.green}${colors.bright}-------------------------------------------------${colors.reset}`);
   } else {
-    console.log(`${colors.red}${colors.bright}╔════════════════════════════════════════════════════════════╗${colors.reset}`);
-    console.log(`${colors.red}${colors.bright}║${colors.reset}          ${colors.red}⚠️  ALGUNOS TESTS FALLARON ⚠️${colors.reset}                     ${colors.red}${colors.bright}║${colors.reset}`);
-    console.log(`${colors.red}${colors.bright}╚════════════════════════════════════════════════════════════╝${colors.reset}`);
+    console.log(`${colors.red}${colors.bright}-------------------------------------------------`);
+    console.log(`⚠️  ALGUNOS TESTS FALLARON ⚠️`);
+    console.log(`${colors.red}${colors.bright}-------------------------------------------------${colors.reset}`);
   }
   
   console.log(`\n${colors.white}🏁 Ejecución finalizada${colors.reset}\n`);
