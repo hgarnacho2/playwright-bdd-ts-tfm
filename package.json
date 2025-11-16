@@ -7,7 +7,7 @@
     "init": "npm install --legacy-peer-deps && npx playwright install",
     "test:local": "ENV=local BROWSER=chromium HEADLESS=false cucumber-js",
     "test:ci": "ENV=ci BROWSER=chromium HEADLESS=true cucumber-js --tags @regresion",
-    "test:headed:slow": "HEADLESS=false SLOW_MO=1000 cucumber-js",
+    "test:local:slow": "HEADLESS=false SLOW_MO=1000 cucumber-js",
     "test:headless": "HEADLESS=true cucumber-js",
     "test:debug": "cucumber-js --tags @debug",
     "test:login": "cucumber-js --tags @login",

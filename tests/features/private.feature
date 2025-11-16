@@ -16,22 +16,22 @@ Feature: Private Page - Clubes de Fútbol
 
   @filtrar @mostrarTodos @ok
   Scenario: Visualizar la lista de clubes correctamente
-    Given La tabla de clubes debe ser visible
-    And Se debe mostrar "Mostrando 1-10 de 25 clubes"
+    Given Deberia ver la tabla de clubes
+    And Deberia ver "Mostrando 1-10 de 25 clubes" en el texto de resultados
     And El boton de cerrar sesion debe estar visible
 
   @filtrar @filterByName @ok
   Scenario: Buscar clubes por nombre
     When Busco "Real Madrid"
     Then La tabla debe mostrar 1 resultado
-    And Los resultados deben mostrar "Mostrando 1-1 de 1 clubes"
+    And Deberia ver "Mostrando 1-1 de 1 clubes" en el texto de resultados
     And La tabla debe contener "Real Madrid CF"
 
   @filtrar @filtrarPorCiudad @ok
   Scenario: Buscar clubes por ciudad
     When Busco "Sevilla"
     Then La tabla debe mostrar 2 resultados
-    And Los resultados deben mostrar "Mostrando 1-2 de 2 clubes"
+    And Deberia ver "Mostrando 1-2 de 2 clubes" en el texto de resultados    
     And La tabla debe contener "Sevilla FC"
     And La tabla debe contener "Real Betis"
 
