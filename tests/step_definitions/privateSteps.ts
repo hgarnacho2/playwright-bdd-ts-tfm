@@ -2,6 +2,7 @@ import { Given, When, Then, Before, After } from '@cucumber/cucumber';
 import { expect, selectors } from '@playwright/test';
 import { chromium, Browser, Page, BrowserContext } from '@playwright/test';
 import { PrivatePage } from '../pages/PrivatePage';
+import { ICustomWorld } from 'tests/support/world';
 
 let browser: Browser;
 let context: BrowserContext;
@@ -9,54 +10,24 @@ let page: Page;
 let privatePage: PrivatePage;
 let username: string;
 
-Before(async function () {
-  browser = await chromium.launch({ headless: false });
-  context = await browser.newContext();
-  page = await context.newPage();
-  privatePage = new PrivatePage(page);
+
+Given('Estoy en la pagina privada', async function (this: ICustomWorld) {
+  const privateUrl = `file://${process.cwd()}/demo/private.html`;
+  await this.privatePage?.navigateToPrivate();
+  const isOnLoginPage = await this.privatePage?.isOnPrivatePage();
+  expect(isOnLoginPage).toBe(true);
 });
 
-After(async function () {
-  await context.close();
-  await browser.close();
+
+When('Busco {string}', async function (this: ICustomWorld, searchTerm: string) {
+  if (!this.privatePage) throw new Error('privatePage no ha sido inicializada');
+  await this.privatePage.searchClubs(searchTerm);
+  await this.privatePage.sleep(500);
 });
 
-// ============================================
-// GIVEN Steps
-// ============================================
-
-Given('Me autentico autenticado como {string}', async function (user: string) {
-  username = user;
-});
-
-Given('Navego a la página privada', async function () {
-  const user = username || 'Usuario';
-  const privateUrl = `file://${process.cwd()}/demo/private.html?auth=true&user=${user}`;
-  await page.goto(privateUrl);
-  await privatePage.waitForLoadState();
-  await privatePage.waitForWelcomeMessage();
-});
-
-Given('No estoy autenticado', async function () {
-  username = '';
-});
-
-Given('Tengo parámetros de autenticación inválidos', async function () {
-  username = 'InvalidUser';
-});
-
-// ============================================
-// WHEN Steps
-// ============================================
-
-When('Busco {string}', async function (searchTerm: string) {
-  await privatePage.searchClubs(searchTerm);
-  await page.waitForTimeout(500);
-});
-
-When('Hago click en el boton de cerrar sesion', async function () {
-  await privatePage.clickLogoutButton();
-  await page.waitForTimeout(500);
+When('Hago click en el boton de cerrar sesion', async function (this: ICustomWorld) {
+  await this.privatePage.clickLogoutButton();
+  await this.privatePage.sleep(500);
 });
 
 When('Intento acceder a la página privada directamente', async function () {

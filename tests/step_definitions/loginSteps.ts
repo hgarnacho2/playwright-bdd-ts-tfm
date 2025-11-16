@@ -40,12 +40,6 @@ When('Hago click en el boton {string}', async function(this: ICustomWorld, butto
   }
 });
 
-When('Intento acceder directamente a la zona privada', async function(this: ICustomWorld) {
-  if (!this.privatePage || !this.page) throw new Error('PrivatePage no ha sido inicializada');
-  await this.privatePage.navigateToPrivateDirectly();
-  await this.page.waitForTimeout(1000);
-});
-
 Then('Deberia ser redirigido a la zona privada', async function(this: ICustomWorld) {
   if (!this.privatePage || !this.page) throw new Error('PrivatePage no ha sido inicializada');
   await this.page.waitForTimeout(1000);
