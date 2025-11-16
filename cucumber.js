@@ -7,7 +7,7 @@ const config = {
       'tests/step_definitions/**/*.ts'
     ],
     format: [
-      'progress',
+      '@cucumber/pretty-formatter',  // ✅ Esto mostrará todos los steps
       'html:reports/cucumber-report.html',
       'json:reports/cucumber-report.json'
     ],
