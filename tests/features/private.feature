@@ -1,5 +1,5 @@
 @private @regresion
-Feature: Private Page - Clubes de Fútbol
+Feature: Página privada - Clubes de Fútbol
   Como usuario autenticado
   Quiero acceder a la zona privada
   Para visualizar y buscar información de clubes de fútbol españoles

@@ -4,7 +4,7 @@ const config = {
     require: [
       'tests/support/world.ts',
       'tests/support/hooks.ts',
-      'tests/step_definitions/**/*.ts'
+      'tests/steps/**/*.ts'
     ],
     format: [
       '@cucumber/pretty-formatter',  // ✅ Esto mostrará todos los steps
