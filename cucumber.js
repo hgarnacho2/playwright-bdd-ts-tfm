@@ -1,14 +1,13 @@
 const config = {
   default: {
-    // 👉 Ejecuta TypeScript directamente (puedes usar 'ts-node/register' si prefieres)
     requireModule: ['tsx'],
     require: [
       'tests/support/world.ts',
       'tests/support/hooks.ts',
-      'tests/step_definitions/**/*.ts'
+      'tests/steps/**/*.ts'
     ],
     format: [
-      'progress',
+      '@cucumber/pretty-formatter',  // ✅ Esto mostrará todos los steps
       'html:reports/cucumber-report.html',
       'json:reports/cucumber-report.json'
     ],

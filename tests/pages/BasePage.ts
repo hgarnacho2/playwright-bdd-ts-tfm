@@ -62,4 +62,9 @@ export class BasePage {
   async screenshot(path: string): Promise<void> {
     await this.page.screenshot({ path });
   }
+
+async sleep(timeOut: number = 1000): Promise<void> {
+    await this.page.waitForTimeout(timeOut);
+}
+
 }

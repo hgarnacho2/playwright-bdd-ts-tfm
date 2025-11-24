@@ -85,7 +85,7 @@ Los reportes se generan automáticamente en:
 │   │   ├── BasePage.ts
 │   │   ├── LoginPage.ts
 │   │   └── PrivatePage.ts
-│   ├── step_definitions/   # Implementación de steps (TypeScript)
+│   ├── steps/              # Implementación de steps (TypeScript)
 │   │   └── loginSteps.ts
 │   └── support/            # Configuración y hooks (TypeScript)
 │       ├── world.ts

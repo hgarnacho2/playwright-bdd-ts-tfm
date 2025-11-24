@@ -5,21 +5,18 @@
   "main": "index.js",
   "scripts": {
     "init": "npm install --legacy-peer-deps && npx playwright install",
-    
     "test:local": "ENV=local BROWSER=chromium HEADLESS=false cucumber-js",
     "test:ci": "ENV=ci BROWSER=chromium HEADLESS=true cucumber-js --tags @regresion",
-
-    "test:headed:slow": "HEADLESS=false SLOW_MO=1000 cucumber-js",
-    "test:headless": "HEADLESS=true cucumber-js",
-
-    "test:debug": "cucumber-js --tags @debug",
-    "test:login": "cucumber-js --tags @login",
-    "test:chromium": "HEADLESS=true cucumber-js",
-    "test:firefox": "BROWSER=firefox cucumber-js",
-    "test:webkit": "BROWSER=webkit cucumber-js",
-    "test:firefox:headless": "BROWSER=firefox HEADLESS=true cucumber-js",
-    "test:webkit:headless": "BROWSER=webkit HEADLESS=true cucumber-js",
-
+    "test:local:slow": "ENV=local BROWSER=chromium HEADLESS=false SLOW_MO=1000 cucumber-js",
+    "test:headless": "ENV=local BROWSER=chromium HEADLESS=true cucumber-js",
+    "test:debug": "ENV=local BROWSER=chromium HEADLESS=true cucumber-js --tags @debug",
+    "test:login": "ENV=local BROWSER=chromium HEADLESS=true cucumber-js --tags @login",
+    "test:private": "ENV=local BROWSER=chromium HEADLESS=true cucumber-js --tags @private",
+    "test:chromium": "ENV=local BROWSER=chromium HEADLESS=true HEADLESS=true cucumber-js",
+    "test:firefox": "ENV=local BROWSER=chromium HEADLESS=true BROWSER=firefox cucumber-js",
+    "test:webkit": "ENV=local BROWSER=chromium HEADLESS=true BROWSER=webkit cucumber-js",
+    "test:firefox:headless": "ENV=local BROWSER=chromium HEADLESS=true BROWSER=firefox HEADLESS=true cucumber-js",
+    "test:webkit:headless": "ENV=local BROWSER=chromium HEADLESS=true BROWSER=webkit HEADLESS=true cucumber-js",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"tests/**/*.ts\" \"*.ts\""
   },
@@ -34,17 +31,16 @@
   ],
   "devDependencies": {
     "@cucumber/cucumber": "^10.0.0",
+    "@cucumber/pretty-formatter": "^2.4.1",
     "@playwright/test": "^1.40.0",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
+    "dotenv": "^16.4.5",
     "eslint": "^8.55.0",
-    "playwright": "^1.40.0",
     "prettier": "^3.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
     "tsx": "^4.12.0",
-    "dotenv": "^16.4.5"
-  },
-  "dependencies": {}
+    "typescript": "^5.3.3"
+  }
 }
