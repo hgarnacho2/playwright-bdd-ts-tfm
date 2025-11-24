@@ -20,7 +20,7 @@ npm run init
 
 ### 2. Preparar archivos HTML
 
-Asegúrate de que `login.html` y `private.html` estén en la carpeta `/demo` dentro del proyecto.
+Asegúrate de que `login.html` y `private.html` estén en la carpeta `/docs` dentro del proyecto.
 
 ---
 

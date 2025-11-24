@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import path from 'path';
 
 interface PrivateSelectors {
   welcomeMessage: string;
@@ -33,7 +34,14 @@ export class PrivatePage extends BasePage {
   }
 
   async navigateToPrivate(): Promise<void> {
-    await this.navigateTo('file://' + process.cwd() + '/demo/private.html');
+    const baseUrl = process.env.PRIVATE_URL!;
+    let finalUrl: string;
+    if (baseUrl.startsWith('http')) {
+      finalUrl = baseUrl;
+    } else {
+      finalUrl = 'file://' + path.join(process.cwd(), baseUrl);
+    }
+    await this.navigateTo(finalUrl);
     await this.waitForLoadState();
   }
 

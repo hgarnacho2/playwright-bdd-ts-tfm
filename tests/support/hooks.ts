@@ -1,6 +1,8 @@
 import { Before, After, BeforeAll, AfterAll, Status, setDefaultTimeout } from '@cucumber/cucumber';
 import { ICustomWorld } from './world';
 import * as fs from 'fs';
+import * as dotenv from 'dotenv';
+import path from 'path';
 
 // ════════════════════════════════════════════════════════════════════════════
 // 🎨 COLORES ANSI PARA CONSOLA
@@ -33,6 +35,13 @@ let failedScenarios = 0;
 let skippedScenarios = 0;
 let totalDuration = 0;
 let startTime: number;
+
+// Determinar el entorno (por defecto 'local')
+const env = process.env.ENV || 'local';
+
+// Cargar el archivo .env correspondiente
+const envFilePath = path.resolve(__dirname, `../../.env.${env}`);
+dotenv.config({ path: envFilePath });
 
 BeforeAll(async function() {
   const dirs = ['reports', 'reports/screenshots'];

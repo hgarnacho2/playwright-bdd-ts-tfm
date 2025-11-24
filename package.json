@@ -6,7 +6,7 @@
   "scripts": {
     "init": "npm install --legacy-peer-deps && npx playwright install",
     "test:local": "ENV=local BROWSER=chromium HEADLESS=false cucumber-js",
-    "test:ci": "ENV=ci BROWSER=chromium HEADLESS=true cucumber-js --tags @regresion",
+    "test:ci": "ENV=ci BROWSER=chromium HEADLESS=false cucumber-js --tags @regresion",
     "test:local:slow": "ENV=local BROWSER=chromium HEADLESS=false SLOW_MO=1000 cucumber-js",
     "test:headless": "ENV=local BROWSER=chromium HEADLESS=true cucumber-js",
     "test:debug": "ENV=local BROWSER=chromium HEADLESS=true cucumber-js --tags @debug",

@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 import { ICustomWorld } from 'tests/support/world';
 
 Given('Estoy en la pagina privada', async function (this: ICustomWorld) {
-  const privateUrl = `file://${process.cwd()}/demo/private.html`;
+  const privateUrl = `file://${process.cwd()}/docs/private.html`;
   await this.privatePage?.navigateToPrivate();
   const isOnLoginPage = await this.privatePage?.isOnPrivatePage();
   expect(isOnLoginPage).toBe(true);
