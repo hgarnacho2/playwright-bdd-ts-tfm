@@ -42,6 +42,7 @@ const env = process.env.ENV || 'local';
 // Cargar el archivo .env correspondiente
 const envFilePath = path.resolve(__dirname, `../../.env.${env}`);
 dotenv.config({ path: envFilePath });
+const environment = process.env.NODE_ENV || process.env.ENV || 'local';
 
 BeforeAll(async function() {
   const dirs = ['reports', 'reports/screenshots'];
@@ -64,6 +65,8 @@ Before(async function(this: ICustomWorld, scenario) {
   this.clearTestData();
   totalScenarios++;
   console.log(`\n${colors.cyan}🚀 Iniciando escenario:${colors.reset} ${scenario.pickle.name} ${colors.gray}en navegador: ${browserType}${colors.reset}`);
+  console.log(`${colors.violet}⚙️  Entorno:${colors.reset} ${environment}`);
+  console.log(`${colors.violet}🌐 URL:${colors.reset} ${process.env.BASE_URL!}${colors.reset}`);
 });
 
 After(async function(this: ICustomWorld, scenario) {
