@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import path from 'path';
 
 interface LoginSelectors {
   usernameInput: string;
@@ -27,7 +28,14 @@ export class LoginPage extends BasePage {
   }
 
   async navigateToLogin(): Promise<void> {
-    await this.navigateTo('file://' + process.cwd() + '/demo/login.html');
+    const baseUrl = process.env.BASE_URL!;
+    let finalUrl: string;
+    if (baseUrl.startsWith('http')) {
+      finalUrl = baseUrl;
+    } else {
+      finalUrl = 'file://' + path.join(process.cwd(), baseUrl);
+    }
+    await this.navigateTo(finalUrl);
     await this.waitForLoadState();
   }
 
