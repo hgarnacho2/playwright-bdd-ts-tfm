@@ -35,6 +35,7 @@ export class LoginPage extends BasePage {
     } else {
       finalUrl = 'file://' + path.join(process.cwd(), baseUrl);
     }
+    console.log(finalUrl);
     await this.navigateTo(finalUrl);
     await this.waitForLoadState();
   }
