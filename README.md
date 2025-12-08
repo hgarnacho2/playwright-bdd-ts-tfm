@@ -13,10 +13,25 @@ Este proyecto implementa un **framework de testing automatizado** usando **Playw
 ## 🚀 Instalación y Configuración
 
 ### 1. Inicializar proyecto e instalar dependencias
+Para poder instalar y ejecutar el proyecto, es necesario disponer de un ordenador que tenga instado:
+* Node.js (recomendadad versión 24.x
+* GIT
+
+Una vez dispongamos de Node y GIT, Los pasos para la instalación son los siguientes:
+
+1. Clonar este proyecto en la carpeta destino que deseemos en nuestro ordenador
+
+```git
+git clone https://github.com/hgarnacho2/playwright-bdd-ts-tfm.git
+```
+
+2. Entrar a la carpeta en la que hayamos instalado nuestro proyecto y ejecutar el siguiente comando
 
 ```bash
 npm run init
 ```
+
+Una vez hayamos hecho esto, ya podremos ejecutar las pruebas automartizadas en nuestro ordenador de modo local.
 
 ### 2. Aplicación web de ejemplo para pruebas
 
@@ -31,7 +46,7 @@ La aplicación web de pruebas se encuentra en 2 sitios:
 
 ---
 
-## 🧪 Ejecutar Tests
+## 🧪 Ejecutar Tests en nuestro ordenador (Modo local)
 
 ### Ejecutar todos los tests en modo headless (Navegador visible)
 
@@ -73,7 +88,7 @@ Es posible ejecutar subconjuntos de tests, segúnb su etiquetado. Por ejemplo, p
 | `npm run test:private`          | private   | # Solo tests con tag @private
 ---
 
-### Probar Integración continua
+### Probar Integración continua (Ejecutar las pruebas automatizadas en un pipeline CI en GitHub)
 Para realizar una prueba real de integración continua se pueden seguir los siguientes pasos:
 1. Realizar un cambio sobre la aplicación web de prueba en la rama dev (Archivos login.html o private.html en la carpeta docs)
 2. Crear una pull request desde la rama dev a la rama main
