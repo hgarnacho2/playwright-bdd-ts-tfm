@@ -62,16 +62,20 @@ Es posible ejecutar subconjuntos de tests, segúnb su etiquetado. Por ejemplo, p
 
 | Script                          | Etiqueta  |
 | ------------------------------- | --------- |
-| `npm run test:login`            | login     | # Solo tests con tag @login
-| `npm run test:private`          | private   | # Solo tests con tag @private
+| `npm run test:login`            | login     |  Solo tests con tag @login
+| `npm run test:private`          | private   |  Solo tests con tag @private
 ---
 
 ## 📋 Scenarios de Prueba
 
 * ✅ Login exitoso con credenciales válidas
 * ❌ Login fallido con credenciales inválidas
-* ❌ Login fallido sin aceptar términos
-* 🔐 Acceso directo sin autenticación
+* ❌ Login fallido sin aceptar términos de uso
+* 🔐 Acceso directo a zona privada sin autenticación
+* ✅ Visualizar la lista de clubes correctamente
+* ✅ Buscar clubes por nombre
+* ✅ Buscar clubes por ciudad 
+* ✅ Cerrar sesión correctamente
 
 ---
 
@@ -180,5 +184,4 @@ npm run format
 3. Ejecuta con `npm run test`
 
 ---
-xx
 
