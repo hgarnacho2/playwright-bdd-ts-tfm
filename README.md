@@ -23,11 +23,11 @@ npm run init
 La aplicación web de pruebas se encuentra en 2 sitios:
 
 * En la carpeta docs del proyecto
-  ** login.html
-  ** private.html
+ * login.html
+ * private.html
 
 * Desplegada en GitHub Pages
-  ** https://hgarnacho2.github.io/playwright-bdd-ts-tfm/login.html
+  * https://hgarnacho2.github.io/playwright-bdd-ts-tfm/login.html
 
 ---
 
@@ -137,16 +137,6 @@ Los reportes se generan automáticamente en:
 
 ---
 
-## 📝 Ventajas de TypeScript
-
-* ✅ **Type Safety**
-* ✅ **IntelliSense**
-* ✅ **Refactoring seguro**
-* ✅ **Documentación automática con tipos**
-* ✅ **Mantenibilidad y limpieza del código**
-
----
-
 ## 🛠️ Scripts Disponibles
 
 ```bash
@@ -195,5 +185,4 @@ npm run format
 3. Ejecuta con `npm run test`
 
 ---
-xx
 
