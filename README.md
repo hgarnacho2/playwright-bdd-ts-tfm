@@ -18,7 +18,16 @@ Este proyecto implementa un **framework de testing automatizado** usando **Playw
 npm run init
 ```
 
-### 2. Preparar archivos HTML
+### 2. Aplicación web de ejemplo para pruebas
+
+La aplicación web de pruebas se encuentra en 2 sitios:
+
+* En la carpeta docs del proyecto
+  ** login.html
+  ** private.html
+
+* Desplegada en GitHub Pages
+  ** https://hgarnacho2.github.io/playwright-bdd-ts-tfm/login.html
 
 Asegúrate de que `login.html` y `private.html` estén en la carpeta `/docs` dentro del proyecto.
 
