@@ -19,7 +19,7 @@ Para poder instalar y ejecutar el proyecto, es necesario disponer de un ordenado
 
 Una vez dispongamos de Node y GIT, Los pasos para la instalación son los siguientes:
 
-1. Clonar este proyecto en la carpeta destinon que deseemos en nuestro ordenador
+1. Clonar este proyecto en la carpeta destino que deseemos en nuestro ordenador
 
 ```git
 git clone https://github.com/hgarnacho2/playwright-bdd-ts-tfm.git
