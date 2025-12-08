@@ -29,8 +29,6 @@ La aplicación web de pruebas se encuentra en 2 sitios:
 * Desplegada en GitHub Pages
   ** https://hgarnacho2.github.io/playwright-bdd-ts-tfm/login.html
 
-Asegúrate de que `login.html` y `private.html` estén en la carpeta `/docs` dentro del proyecto.
-
 ---
 
 ## 🧪 Ejecutar Tests
@@ -74,6 +72,14 @@ Es posible ejecutar subconjuntos de tests, segúnb su etiquetado. Por ejemplo, p
 | `npm run test:login`            | login     | # Solo tests con tag @login
 | `npm run test:private`          | private   | # Solo tests con tag @private
 ---
+
+### Probar Integración continua
+Para realizar una prueba real de integración continua se pueden seguir los siguientes pasos:
+1. Realizar un cambio sobre la aplicación web de prueba en la rama dev (Archivos login.html o private.html en la carpeta docs)
+2. Crear una pull request desde la rama dev a la rama main
+3. Automáticamente se lanzarán los checks relativos al despliegue de lqa web de ejemplo en GitHub PAges y los tests automatizados en PlayWright
+4. Si los tests son incorrectos, se bloqueará la pull request. En caso de pasar correctamente, se podrá confirmar el cambio sobre la rama main.
+5. Se habrán generado los informes (artifacts) sobre la ejecución de los tests.
 
 ## 📋 Scenarios de Prueba
 
