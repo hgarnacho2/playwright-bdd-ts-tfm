@@ -1,13 +1,50 @@
 name: test-playwright-regresion
+
 on:
-  workflow_dispatch:  # 👈 permite lanzarlo desde otro repo o manualmente
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
+# Permisos necesarios para desplegar en Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita que despliegues simultáneos rompan el sitio
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
+  # JOB 1: Desplegar a GitHub Pages
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir artefacto (Carpeta docs)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Indicamos que el sitio web está en la carpeta 'docs'
+          path: 'docs'
+
+      - name: Desplegar a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # JOB 2: Ejecutar Tests (Espera a que termine el deploy)
   test-playwright:
+    needs: deploy  # Espera al job 'deploy'
     runs-on: ubuntu-latest
     name: test-playwright-regresion
     steps:
@@ -25,9 +62,10 @@ jobs:
       - name: Instalar navegadores de Playwright
         run: npx playwright install --with-deps
 
+      # Ejecución de tests usando la URL recién desplegada
       - name: Ejecutar tests de regresión
         run: npm run test:ci
-        
+
       - name: Subir reporte HTML de Cucumber
         if: always()
         uses: actions/upload-artifact@v4
