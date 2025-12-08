@@ -21,6 +21,9 @@ concurrency:
 jobs:
   # 🚀 JOB 1: Desplegar a GitHub Pages
   deploy:
+    # 🚨 SÓLO se ejecuta si hay un push a la rama principal (después de un merge)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
