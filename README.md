@@ -6,7 +6,7 @@ TFM - CFGS DAW - Héctor Garnacho García
 
 # Framework de Testing BDD con Playwright, Cucumber y TypeScript
 
-Este proyecto implementa un **framework de testing automatizado** usando **Playwright**, **Cucumber** (BDD), **Gherkin**, **TypeScript** y **Page Object Model (POM)** para probar la aplicación web de login.
+Este proyecto implementa un **framework de testing automatizado** usando **Playwright**, **Cucumber** (BDD), **Gherkin**, **TypeScript** y **Page Object Model (POM)** para probar la aplicación web sencilla que permite realizar login, y acceder a una zona privada en la que se pueden consultar datos sobre clubes de fútbol.
 
 ---
 
@@ -18,32 +18,17 @@ Este proyecto implementa un **framework de testing automatizado** usando **Playw
 npm run init
 ```
 
-### 2. Preparar archivos HTML
-
-Asegúrate de que `login.html` y `private.html` estén en la carpeta `/docs` dentro del proyecto.
-
 ---
 
 ## 🧪 Ejecutar Tests
 
-### Ejecutar todos los tests en modo headless
-
-```bash
-npm run test:headless
-```
-
 ### Ejecutar todos los tests en modo headed (navegador visible)
 
 ```bash
-npm test
+npm run test:local:slow
 ```
 
-### Ejecutar tests por tags
-
-```bash
-npm run test:debug   # Solo tests con tag @debug
-npm run test:login   # Solo tests con tag @login
-```
+---
 
 ### Ejecutar tests en navegadores específicos
 
@@ -56,6 +41,12 @@ npm run test:login   # Solo tests con tag @login
 | `npm run test:webkit:headless`  | WebKit    | true     |
 
 ---
+
+### Consultar todos los comandos disponibles para lanzar tests
+
+```bash
+npm run
+```
 
 ## 📋 Scenarios de Prueba
 
