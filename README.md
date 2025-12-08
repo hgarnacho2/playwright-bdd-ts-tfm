@@ -26,23 +26,24 @@ Asegúrate de que `login.html` y `private.html` estén en la carpeta `/docs` den
 
 ## 🧪 Ejecutar Tests
 
-### Ejecutar todos los tests en modo headless
+### Ejecutar todos los tests en modo headless (Navegador visible)
 
 ```bash
-npm run test:headless
+npm run test:local
 ```
 
-### Ejecutar todos los tests en modo headed (navegador visible)
+### Ejecución ralentizada
+
+Los test se ejecutan a gran velocidad, por lo que es posible que no de tiempo a visuablizar correctamente las interacciones del framework con el frontal de la aplicación web. Por ello, podemos ejecutarlos a una velocidad menor.
 
 ```bash
-npm test
+npm run test:local:slow
 ```
 
-### Ejecutar tests por tags
+### Ejecutar todos los tests en modo headless (navegador no visible)
 
 ```bash
-npm run test:debug   # Solo tests con tag @debug
-npm run test:login   # Solo tests con tag @login
+npm test:local:headless
 ```
 
 ### Ejecutar tests en navegadores específicos
@@ -55,6 +56,14 @@ npm run test:login   # Solo tests con tag @login
 | `npm run test:firefox:headless` | Firefox   | true     |
 | `npm run test:webkit:headless`  | WebKit    | true     |
 
+### Ejecutar tests según etiquetado (tags)
+
+Es posible ejecutar subconjuntos de tests, segúnb su etiquetado. Por ejemplo, podemos ejecutar solo los tests automatizados referentes al login o los de la página privada por separado.
+
+| Script                          | Etiqueta  |
+| ------------------------------- | --------- |
+| `npm run test:login`            | login     | # Solo tests con tag @login
+| `npm run test:private`          | private   | # Solo tests con tag @private
 ---
 
 ## 📋 Scenarios de Prueba
