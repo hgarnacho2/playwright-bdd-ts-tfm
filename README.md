@@ -22,12 +22,12 @@ npm run init
 
 La aplicación web de pruebas se encuentra en 2 sitios:
 
-* En la carpeta docs del proyecto
- * login.html
- * private.html
+* En la carpeta **docs** del proyecto
+    * login.html
+    * private.html
 
-* Desplegada en GitHub Pages
-  * https://hgarnacho2.github.io/playwright-bdd-ts-tfm/login.html
+* Desplegada en **GitHub Pages**
+    * https://hgarnacho2.github.io/playwright-bdd-ts-tfm/login.html
 
 ---
 
